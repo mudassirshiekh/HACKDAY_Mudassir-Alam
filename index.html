@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoVision AI - Environmental Awareness in Real Time</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>EcoVision AI</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </li>
+            <li class="menu-item" data-page="upload">
+                <i class="fas fa-upload"></i>
+                <span>Upload Image</span>
+            </li>
+            <li class="menu-item" data-page="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </li>
+            <li class="menu-item" data-page="tips">
+                <i class="fas fa-lightbulb"></i>
+                <span>Eco Tips</span>
+            </li>
+            <li class="menu-item" data-page="history">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </li>
+        </ul>
+    </nav>
+
+    
+    <main class="main-content" id="mainContent">
+        <!-- Home Page -->
+        <div class="page active" id="homePage">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-main">EcoVision AI</span>
+                        <span class="title-sub">Environmental Awareness in Real Time</span>
+                    </h1>
+                    <p class="hero-tagline">Detect pollution and generate actionable tips instantly.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="navigateToPage('upload')">
+                            <i class="fas fa-upload"></i>
+                            Upload Image
+                        </button>
+                        <button class="btn btn-secondary" onclick="showDemo()">
+                            <i class="fas fa-play"></i>
+                            View Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-cards">
+                        <div class="card air-pollution">
+                            <i class="fas fa-smog"></i>
+                            <span>Air Quality</span>
+                        </div>
+                        <div class="card water-pollution">
+                            <i class="fas fa-tint"></i>
+                            <span>Water Safety</span>
+                        </div>
+                        <div class="card land-pollution">
+                            <i class="fas fa-seedling"></i>
+                            <span>Land Health</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2>How It Works</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>1. Upload Image</h3>
+                        <p>Take or upload a photo of any environmental area you want to analyze</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>2. AI Analysis</h3>
+                        <p>Our advanced AI analyzes the image for pollution indicators and environmental health</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>3. Get Results</h3>
+                        <p>Receive detailed insights, risk assessments, and actionable recommendations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Page -->
+        <div class="page" id="uploadPage">
+            <div class="page-header">
+                <h1>Upload Image for Analysis</h1>
+                <p>Upload an image to detect environmental pollution and get actionable insights</p>
+            </div>
+            
+            <div class="upload-container">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drop your image here or click to browse</h3>
+                        <p>Supports JPG, PNG, GIF up to 10MB</p>
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                    </div>
+                </div>
+                
+                <div class="image-preview" id="imagePreview">
+                    <img id="previewImage" src="" alt="Preview">
+                    <div class="preview-actions">
+                        <button class="btn btn-primary" id="analyzeBtn">
+                            <i class="fas fa-search"></i>
+                            Analyze Image
+                        </button>
+                        <button class="btn btn-secondary" id="removeImage">
+                            <i class="fas fa-trash"></i>
+                            Remove
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <h3>Analyzing your image...</h3>
+                    <p>Our AI is detecting pollution indicators and environmental factors</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div class="page" id="dashboardPage">
+            <div class="page-header">
+                <h1>Analysis Results</h1>
+                <p>Environmental assessment and recommendations</p>
+            </div>
+            
+            <div class="results-container" id="resultsContainer">
+                <div class="no-results">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>No Analysis Results Yet</h3>
+                    <p>Upload an image to see environmental analysis results</p>
+                    <button class="btn btn-primary" onclick="navigateToPage('upload')">
+                        <i class="fas fa-upload"></i>
+                        Upload Image
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Page -->
+        <div class="page" id="tipsPage">
+            <div class="page-header">
+                <h1>Eco-Friendly Tips</h1>
+                <p>Simple actions you can take to help the environment</p>
+            </div>
+            
+            <div class="tips-container">
+                <div class="tips-grid" id="tipsGrid">
+                    <!-- Tips will be dynamically generated -->
+                </div>
+                <button class="btn btn-primary" id="refreshTips">
+                    <i class="fas fa-refresh"></i>
+                    Get New Tips
+                </button>
+            </div>
+        </div>
+
+        <!-- History Page -->
+        <div class="page" id="historyPage">
+            <div class="page-header">
+                <h1>Analysis History</h1>
+                <p>View your previous environmental analyses</p>
+            </div>
+            
+            <div class="history-container" id="historyContainer">
+                <div class="no-history">
+                    <i class="fas fa-history"></i>
+                    <h3>No Analysis History</h3>
+                    <p>Your analysis history will appear here after uploading images</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Demo Modal -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>EcoVision AI Demo</h2>
+                <button class="modal-close" onclick="closeDemo()" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="demo-video">
+                    <div class="demo-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>Interactive Demo</h3>
+                        <p>Experience EcoVision AI in action</p>
+                    </div>
+                </div>
+                <div class="demo-features">
+                    <h3>What you'll see:</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Real-time pollution detection</li>
+                        <li><i class="fas fa-check"></i> Risk level assessment</li>
+                        <li><i class="fas fa-check"></i> Actionable recommendations</li>
+                        <li><i class="fas fa-check"></i> Environmental impact visualization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
