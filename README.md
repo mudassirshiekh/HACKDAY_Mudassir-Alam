@@ -27,7 +27,6 @@ EcoVision AI analyzes images of air, water, and land pollution using **Google Ge
 3. AI generates awareness tips  
 4. User sees results + optional poster  
 
-![Prototype GIF](![Uploading [ Prototype ]-demo.gif…])
 
 
 ### 🚀 Live Prototype
