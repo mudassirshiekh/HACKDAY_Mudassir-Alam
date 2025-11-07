@@ -1,4 +1,3 @@
-// Global state management
 const appState = {
     currentPage: 'home',
     uploadedImage: null,
@@ -58,7 +57,6 @@ const appState = {
     ]
 };
 
-// DOM elements
 const sidebar = document.getElementById('sidebar');
 const mainContent = document.getElementById('mainContent');
 const sidebarToggle = document.getElementById('sidebarToggle');
@@ -75,7 +73,6 @@ const refreshTips = document.getElementById('refreshTips');
 const historyContainer = document.getElementById('historyContainer');
 const demoModal = document.getElementById('demoModal');
 
-// Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('EcoVision AI: Initializing application...');
     try {
@@ -89,23 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
-    // Set initial page
     navigateToPage('home');
-    
-    // Initialize sidebar
     updateSidebarState();
-    
-    // Load history
     renderHistory();
 }
 
 function setupEventListeners() {
-    // Sidebar toggle for mobile
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', toggleSidebar);
     }
-    
-    // Menu navigation
     document.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', function() {
             const page = this.dataset.page;
@@ -113,7 +102,6 @@ function setupEventListeners() {
         });
     });
     
-    // Upload functionality
     if (uploadArea) {
         uploadArea.addEventListener('click', () => imageInput.click());
         uploadArea.addEventListener('dragover', handleDragOver);
@@ -146,15 +134,9 @@ function setupEventListeners() {
         });
     }
 }
-
-// Navigation functions
 function navigateToPage(page) {
-    console.log('EcoVision AI: Navigating to page:', page);
-    
-    // Hide all pages
+    console.log('EcoVision AI: Navigating to page:', page)  
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    
-    // Show target page
     const targetPage = document.getElementById(page + 'Page');
     if (targetPage) {
         targetPage.classList.add('active');
@@ -164,10 +146,7 @@ function navigateToPage(page) {
         console.error('EcoVision AI: Page not found:', page + 'Page');
     }
     
-    // Update sidebar
     updateSidebarState();
-    
-    // Handle specific page logic
     switch(page) {
         case 'dashboard':
             renderDashboard();
@@ -180,7 +159,6 @@ function navigateToPage(page) {
             break;
     }
     
-    // Close sidebar on mobile
     if (window.innerWidth <= 768) {
         sidebar.classList.remove('open');
     }
@@ -199,7 +177,6 @@ function toggleSidebar() {
     sidebar.classList.toggle('open');
 }
 
-// Upload functionality
 function handleDragOver(e) {
     e.preventDefault();
     uploadArea.classList.add('dragover');
@@ -267,25 +244,17 @@ function removeUploadedImage() {
     imagePreview.classList.remove('show');
 }
 
-// Analysis functionality
 async function analyzeImage() {
     if (!appState.uploadedImage) {
         alert('Please upload an image first.');
         return;
     }
     
-    // Show loading
     imagePreview.classList.remove('show');
     loadingContainer.classList.add('show');
-    
-    // Simulate AI analysis delay
     await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    // Generate mock analysis results
     const results = generateMockAnalysis();
     appState.analysisResults = results;
-    
-    // Add to history
     const historyItem = {
         id: Date.now(),
         image: appState.uploadedImage.dataUrl,
@@ -293,12 +262,10 @@ async function analyzeImage() {
         date: new Date().toISOString()
     };
     appState.history.unshift(historyItem);
-    localStorage.setItem('ecovision_history', JSON.stringify(appState.history));
-    
-    // Navigate to dashboard
+    localStorage.setItem('ecovision_history', JSON.stringify(appState.history)
+   
     navigateToPage('dashboard');
     
-    // Hide loading
     loadingContainer.classList.remove('show');
 }
 
@@ -344,8 +311,6 @@ function generateMockAnalysis() {
         timestamp: new Date().toISOString()
     };
 }
-
-// Dashboard rendering
 function renderDashboard() {
     if (!appState.analysisResults) {
         resultsContainer.innerHTML = `
@@ -404,8 +369,6 @@ function renderDashboard() {
     });
     
     resultsHTML += '</div>';
-    
-    // Add recommendations
     if (results.recommendations.length > 0) {
         resultsHTML += `
             <div class="result-card">
@@ -423,8 +386,6 @@ function renderDashboard() {
             </div>
         `;
     }
-    
-    // Add download section
     resultsHTML += `
         <div class="download-section">
             <button class="btn btn-primary" onclick="downloadResults()">
@@ -438,44 +399,35 @@ function renderDashboard() {
 }
 
 function downloadResults() {
-    // Create a simple awareness poster
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = 800;
     canvas.height = 600;
-    
-    // Background
     ctx.fillStyle = '#f0f8ff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Title
     ctx.fillStyle = '#2d5a27';
     ctx.font = 'bold 32px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('EcoVision AI Analysis Report', canvas.width / 2, 60);
     
-    // Results
     ctx.fillStyle = '#333';
     ctx.font = '18px Arial';
     ctx.textAlign = 'left';
     ctx.fillText(`Risk Level: ${appState.analysisResults.riskLevel.toUpperCase()}`, 50, 120);
     ctx.fillText(`Pollution Types: ${appState.analysisResults.pollutionTypes.join(', ')}`, 50, 150);
     ctx.fillText(`Confidence: ${appState.analysisResults.confidence}%`, 50, 180);
-    
-    // Recommendations
+
     ctx.fillText('Recommendations:', 50, 220);
     appState.analysisResults.recommendations.forEach((rec, index) => {
         ctx.fillText(`• ${rec}`, 70, 250 + (index * 25));
     });
     
-    // Download
     const link = document.createElement('a');
     link.download = 'ecovision-analysis.png';
     link.href = canvas.toDataURL();
     link.click();
 }
 
-// Tips functionality
 function generateRandomTips() {
     const shuffled = [...appState.tips].sort(() => 0.5 - Math.random());
     const selectedTips = shuffled.slice(0, 6);
@@ -490,8 +442,6 @@ function generateRandomTips() {
         </div>
     `).join('');
 }
-
-// History functionality
 function renderHistory() {
     if (appState.history.length === 0) {
         historyContainer.innerHTML = `
@@ -539,8 +489,6 @@ function deleteHistoryItem(id) {
     localStorage.setItem('ecovision_history', JSON.stringify(appState.history));
     renderHistory();
 }
-
-// Demo functionality
 function showDemo() {
     demoModal.classList.add('active');
 }
@@ -549,7 +497,6 @@ function closeDemo() {
     demoModal.classList.remove('active');
 }
 
-// Utility functions
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -569,7 +516,6 @@ window.addEventListener('resize', debounce(() => {
     }
 }, 250));
 
-// Add some interactive animations
 document.addEventListener('mousemove', function(e) {
     const cards = document.querySelectorAll('.floating-cards .card');
     cards.forEach(card => {
@@ -590,7 +536,6 @@ document.addEventListener('mousemove', function(e) {
     });
 });
 
-// Add loading animation for buttons
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('btn')) {
         e.target.style.transform = 'scale(0.95)';
@@ -600,7 +545,6 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Add smooth scrolling for anchor links
 document.addEventListener('click', function(e) {
     if (e.target.matches('a[href^="#"]')) {
         e.preventDefault();
@@ -610,8 +554,6 @@ document.addEventListener('click', function(e) {
         }
     }
 });
-
-// Add keyboard navigation
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeDemo();
@@ -621,7 +563,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Add touch gestures for mobile
 let touchStartX = 0;
 let touchStartY = 0;
 
@@ -636,18 +577,14 @@ document.addEventListener('touchend', function(e) {
     const diffX = touchStartX - touchEndX;
     const diffY = touchStartY - touchEndY;
     
-    // Swipe left to close sidebar
     if (diffX > 50 && Math.abs(diffY) < 100) {
         sidebar.classList.remove('open');
     }
     
-    // Swipe right to open sidebar
     if (diffX < -50 && Math.abs(diffY) < 100) {
         sidebar.classList.add('open');
     }
 });
-
-// Add performance monitoring
 const performanceObserver = new PerformanceObserver((list) => {
     for (const entry of list.getEntries()) {
         if (entry.entryType === 'measure') {
@@ -658,13 +595,10 @@ const performanceObserver = new PerformanceObserver((list) => {
 
 performanceObserver.observe({ entryTypes: ['measure'] });
 
-// Add error handling
 window.addEventListener('error', function(e) {
     console.error('Application error:', e.error);
-    // You could send this to an error tracking service
 });
 
-// Add offline detection
 window.addEventListener('online', function() {
     console.log('Application is online');
 });
@@ -674,7 +608,7 @@ window.addEventListener('offline', function() {
     alert('You are offline. Some features may not work properly.');
 });
 
-// Export for testing
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { appState, navigateToPage, analyzeImage };
 }
+
