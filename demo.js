@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import fs from "fs";
 
 const imagePath = "./sample-pollution.jpg";
-const API_KEY = "AIzaSyCTeusqEJb7ZK-PNT90BogYKfvF_JuH1wU";
+const API_KEY = "YOUR API KEY WILL BE INSERT HERE.";
 
 const prompt = "Analyze this image for pollution and generate actionable environmental awareness tips:";
 
@@ -55,4 +55,5 @@ async function callGemini() {
   } catch (err) {
     console.error("Unhandled error in callGemini:", err);
   }
+
 })();
