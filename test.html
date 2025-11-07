@@ -102,7 +102,7 @@
         function testNavigation() {
             log('Testing navigation functionality...');
             try {
-                // Test if we can access the main app
+            
                 const mainApp = window.open('index.html', '_blank');
                 if (mainApp) {
                     log('Navigation test: Main application opened successfully', 'success');
@@ -117,7 +117,6 @@
         function testFileUpload() {
             log('Testing file upload functionality...');
             try {
-                // Create a test file input
                 const input = document.createElement('input');
                 input.type = 'file';
                 input.accept = 'image/*';
@@ -136,7 +135,6 @@
         function testAnalysis() {
             log('Testing analysis simulation...');
             try {
-                // Simulate analysis
                 const mockResults = {
                     pollutionTypes: ['air', 'water'],
                     riskLevel: 'medium',
@@ -168,7 +166,6 @@
             }
         }
         
-        // Override console.log to capture logs
         const originalLog = console.log;
         const originalError = console.error;
         
@@ -182,9 +179,9 @@
             log(`ERROR: ${args.join(' ')}`, 'error');
         };
         
-        // Initial log
         log('EcoVision AI Test Page loaded successfully', 'success');
         log('Click the test buttons to verify functionality', 'info');
     </script>
 </body>
 </html>
+
