@@ -225,7 +225,7 @@ body {
 }
 
 .water-pollution {
-    bottom: 100px;
+    bottom: 220px;
     left: 20px;
     animation-delay: 1s;
 }
@@ -898,4 +898,5 @@ body {
         font-size: 3rem;
     }
 }
+
 
