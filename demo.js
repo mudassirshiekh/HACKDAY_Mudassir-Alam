@@ -11,7 +11,7 @@ async function callGemini() {
     const imageBuffer = fs.readFileSync(imagePath);
     const imageBase64 = imageBuffer.toString("base64");
 
-    const requestBody = {
+    const Request = {
       contents: [
         {
           parts: [
@@ -57,6 +57,7 @@ async function callGemini() {
   }
 
 })();
+
 
 
 
