@@ -6,7 +6,7 @@ const API_KEY = "YOUR API KEY WILL BE INSERT HERE.";
 
 const prompt = "Analyze this image for pollution and generate actionable environmental awareness tips:";
 
-async function callGemini() {
+aysnc function callGemini() {
   try {
     const imageBuffer = fs.readFileSync(imagePath);
     const imageBase64 = imageBuffer.toString("base64");
@@ -57,6 +57,7 @@ async function callGemini() {
   }
 
 })();
+
 
 
 
