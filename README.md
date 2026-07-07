@@ -35,7 +35,7 @@ EcoVision AI analyzes images of air, water, and land pollution using **Google Ge
 
 ## 👨‍💻 About the Creator
 
- **Mudassir Alam**
+ **Md Mudassir Alam**
 
 💡 AI & Full-Stack Block Chain Developer
 
